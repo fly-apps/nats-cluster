@@ -6,7 +6,7 @@ app = "nats-cluster-example"
 private_network = true
 
 [[services]]
-  internal_port = 4222
+  internal_port = 8222
   protocol = "tcp"
 
   [services.concurrency]
@@ -14,7 +14,11 @@ private_network = true
     soft_limit = 20
 
   [[services.ports]]
-    handlers = ["tls"]
+    handlers = ["http"]
+    port = "80"
+
+  [[services.ports]]
+    handlers = ["tls","http"]
     port = "443"
 
   [[services.tcp_checks]]
