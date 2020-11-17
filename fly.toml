@@ -1,0 +1,22 @@
+# fly.toml file generated for nats-cluster-example on 2020-11-15T14:14:27-06:00
+
+app = "nats-cluster-example"
+
+[experimental]
+private_network = true
+
+[[services]]
+  internal_port = 4222
+  protocol = "tcp"
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.ports]]
+    handlers = ["tls"]
+    port = "443"
+
+  [[services.tcp_checks]]
+    interval = 10000
+    timeout = 2000
