@@ -1,5 +1,11 @@
 # Global NATS Cluster
 
+Creating a global messaging cluster using NATS and Fly.
+
+<!---- cut here --->
+
+## Rationale
+
 NATS is an open source messaging backend you can use for everything from chat applications to infrastructure events. 
 
 This is an example application that runs multiple NATS servers on Fly.io. It creates a mesh ofNATS servers that communicate over a private, encrypted IPv6 network.
@@ -8,13 +14,16 @@ When you point clients at this app, Fly routes them to the closest available ser
 
 ## Setup
 
-1. `flyctl apps create <app-name>`
+1. `flyctl init <app-name>`
 
     > we're using `nats-cluster-example` for this demo, you'll need to pick something else.
+
 2. Update `nats.conf`, change the `routes` setting to `nats-route://global.<app-name>.internal:4248`.
 
     > This tells NATS to query `global.<app-name>.internal` to find other servers. The Fly private DNS resolver returns all available servers when you query the `global.` subdomain.
+    
 3. `flyctl deploy`
+
 4. Add more regions with `flyctl regions add <region>`
 
     > For this demo, we set `ord`, `syd`, `cdg` regions.
