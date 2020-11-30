@@ -8,9 +8,9 @@ Creating a global messaging cluster using NATS and Fly.
 
 NATS is an open source messaging backend you can use for everything from chat applications to infrastructure events. 
 
-This is an example application that runs multiple NATS servers on Fly.io. It creates a mesh ofNATS servers that communicate over a private, encrypted IPv6 network.
+This is an example application that runs multiple NATS servers on Fly.io. It creates a mesh of NATS servers that communicate over a private, encrypted IPv6 network.
 
-When you point clients at this app, Fly routes them to the closest available server. A client in Chicago will connect to a Chicago basedNATS server, a client in Australia will connect to a server running in Sydney. Messages are accepted "at the edge", traverse the Fly private network, and are delivered :from the edge".
+When you point clients at this app, Fly routes them to the closest available server. A client in Chicago will connect to a Chicago based NATS server, a client in Australia will connect to a server running in Sydney. Messages are accepted "at the edge", traverse the Fly private network, and are delivered "from the edge".
 
 ## Setup
 
