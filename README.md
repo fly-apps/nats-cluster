@@ -10,23 +10,31 @@ NATS is an open source messaging backend you can use for everything from chat ap
 
 This is an example application that runs multiple NATS servers on Fly.io. It creates a mesh of NATS servers that communicate over a private, encrypted IPv6 network.
 
-When you point clients at this app, Fly routes them to the closest available server. A client in Chicago will connect to a Chicago based NATS server, a client in Australia will connect to a server running in Sydney. Messages are accepted "at the edge", traverse the Fly private network, and are delivered "from the edge".
+This network is available to apps within the same 6PN network on Fly; part of the same organization
 
 ## Setup
 
-1. `flyctl init <app-name>`
+1. `flyctl init --import example-fly.toml`
 
-    > we're using `nats-cluster-example` for this demo, you'll need to pick something else.
-
-2. Update `nats.conf`, change the `routes` setting to `nats-route://global.<app-name>.internal:4248`.
-
-    > This tells NATS to query `global.<app-name>.internal` to find other servers. The Fly private DNS resolver returns all available servers when you query the `global.` subdomain.
+    > You'll be prompted for an app name, hit return to let Fly generate an app name for you. The `--import` flag uses the given file as a template to configure.
     
-3. `flyctl deploy`
+2. `flyctl deploy`
 
-4. Add more regions with `flyctl regions add <region>`
+    > This will configure a single node of a NATS cluster
+
+3. Add more regions with `flyctl regions add <region>` or
 
     > For this demo, we set `ord`, `syd`, `cdg` regions.
+
+```cmd
+fly regions set ord syd cdg
+```
+
+4. Scale the application so it can place nodes in the regions.
+
+```cmd
+fly scale count 3
+```
 
 Then run `flyctl logs` and you'll see the virtual machines discover each other.
 
@@ -37,9 +45,40 @@ Then run `flyctl logs` and you'll see the virtual machines discover each other.
 2020-11-17T17:31:08.259Z d1152f01 ord [info] [493] 2020/11/17 17:31:08.241644 [INF] [fdaa:0:1:a7b:b92:82fa:bc30:2]:45684 - rid:2 - Route connection created
 ```
 
-Once deployed, you can connect NATS clients to `<app-name>.fly.dev:10000`, or if they support TLS, `<app-name>.fly.dev:10001`.
+## Testing the cluster
+
+While the cluster is only accessible from inside the Fly network, you can use Fly's [Wireguard support](/docs/reference/wireguard/) to create a VPN into your Fly organisation and private network. 
+
+Then you can use tools such as [natscli](https://github.com/nats-io/natscli) to subscribe to topics, publish messages to topics and perform various tests on your NATS cluster. Install the tool first.
+
+Once installed, create a context that points at your NATS cluster:
+
+```cmd
+nats context add --server appname.internal:4222 --description "My Cluster" --select
+```
+
+You can subscribe to a topic with `nats sub topicname`:
+
+```cmd
+nats sub fly.demo
+```
+
+And then, in another terminal sessions, we can use `nats pub topicname` to send either simple messages to that topic:
+
+```cmd
+nats pub fly.demo "Hello World"
+```
+
+Or send multiple messages:
+
+```cmd
+nats pub fly.demo "fly.demo says {{.Cnt}} @ {{.TimeStamp}}" --count=10
+```
+
+You're ready to start integrating NATS messaging into your other Fly applications.
 
 ## What to try next
 
 1. [NATS streaming](https://docs.nats.io/nats-streaming-concepts/intro) offers persistence features, you can create a NATS streaming app by modifying this demo and adding volumes: `flyctl volume create`
+
 2. Create a [NATS super cluster](https://docs.nats.io/nats-server/configuration/gateways) let you join multiple NATS clusters with gateways. If you want to run regional clusters, you can query the Fly DNS service to with `<region>.<app-name>.internal` to find server in specific regions.

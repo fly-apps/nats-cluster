@@ -1,1 +1,6 @@
-app = "nats-cluster-example"
+# fly.toml file generated for dj-nats-cluster-example on 2021-01-08T10:59:37Z
+
+app = "dj-nats-cluster-example"
+
+[experimental]
+private_network=true
