@@ -47,7 +47,7 @@ Then run `flyctl logs` and you'll see the virtual machines discover each other.
 
 ## Testing the cluster
 
-While the cluster is only accessible from inside the Fly network, you can use Fly's [Wireguard support](/docs/reference/wireguard/) to create a VPN into your Fly organisation and private network. 
+While the cluster is only accessible from inside the Fly network, you can use Fly's [Wireguard support](/docs/reference/privatenetwork/) to create a VPN into your Fly organisation and private network. 
 
 Then you can use tools such as [natscli](https://github.com/nats-io/natscli) to subscribe to topics, publish messages to topics and perform various tests on your NATS cluster. Install the tool first.
 
