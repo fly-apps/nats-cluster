@@ -54,7 +54,7 @@ Then you can use tools such as [natscli](https://github.com/nats-io/natscli) to 
 Once installed, create a context that points at your NATS cluster:
 
 ```cmd
-nats context add --server appname.internal:4222 --description "My Cluster" --select
+nats context add fly.demo --server appname.internal:4222 --description "My Cluster" --select
 ```
 
 You can subscribe to a topic with `nats sub topicname`:
