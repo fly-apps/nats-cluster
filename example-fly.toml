@@ -1,6 +1,0 @@
-# fly.toml file generated for nats-cluster-example on 2021-01-08T10:59:37Z
-
-app = "nats-cluster-example"
-
-[experimental]
-private_network=true
