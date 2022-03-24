@@ -1,14 +1,16 @@
 // generated: {{.Timestamp}}
+server_name: "{{.ServerName}}"
 host: ::
 port: 4222
 http_port: 8222
 
 pid_file: /var/run/nats-server.pid
 cluster: {
-    listen: "{{.Host}}:7221",
+    name: "{{.Region}}"
+    listen: "{{.Host}}:7221"
     routes: [
         "nats-route://{{.Region}}.{{.AppName}}.internal:7221"
-    ],
+    ]
     connect_retries: 60
 }
 gateway: {

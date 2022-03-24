@@ -1,26 +1,17 @@
 # Global NATS Cluster
 
-Creating a global messaging cluster using NATS and Fly.
+[NATS](https://docs.nats.io/) is an open source messaging backend suited to many use cases and deployment scenarios. We use it for internal communications at Fly. This repo shows how to use it for your application.
 
-<!---- cut here --->
-
-## Rationale
-
-NATS is an open source messaging backend you can use for everything from chat applications to infrastructure events. 
-
-This is an example application that runs multiple NATS servers on Fly.io. It creates a mesh of NATS servers that communicate over a private, encrypted IPv6 network.
-
-This network is available to apps within the same 6PN network on Fly; part of the same organization
-
+This example creates a federated mesh of NATS servers that communicate over the private, encrypted IpV6 network available to all Fly organizations.
 ## Setup
 
-1. `flyctl init --import example-fly.toml`
+1. `fly launch --no-deploy`
 
-    > You'll be prompted for an app name, hit return to let Fly generate an app name for you. The `--import` flag uses the given file as a template to configure.
-    
+    > You'll be prompted for an app name. Hit return to let Fly generate an app name for you. Pick your target organizatio and a starting region.
+
 2. `flyctl deploy`
 
-    > This will configure a single node of a NATS cluster
+    > This will start NATS with a single node in your selected region.
 
 3. Add more regions with `flyctl regions add <region>` or
 
@@ -47,7 +38,7 @@ Then run `flyctl logs` and you'll see the virtual machines discover each other.
 
 ## Testing the cluster
 
-While the cluster is only accessible from inside the Fly network, you can use Fly's [Wireguard support](/docs/reference/privatenetwork/) to create a VPN into your Fly organisation and private network. 
+While the cluster is only accessible from inside the Fly network, you can use Fly's [Wireguard support](/docs/reference/privatenetwork/) to create a VPN into your Fly organisation and private network.
 
 Then you can use tools such as [natscli](https://github.com/nats-io/natscli) to subscribe to topics, publish messages to topics and perform various tests on your NATS cluster. Install the tool first.
 

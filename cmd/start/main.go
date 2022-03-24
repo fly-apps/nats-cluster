@@ -33,7 +33,7 @@ func main() {
 
 	svisor.AddProcess(
 		"nats-server",
-		"nats-server -c /etc/nats.conf --logtime=false",
+		"nats-server -js -c /etc/nats.conf --logtime=false",
 		supervisor.WithRestart(0, 1*time.Second),
 	)
 
@@ -55,6 +55,7 @@ type FlyEnv struct {
 	AppName        string
 	Region         string
 	GatewayRegions []string
+	ServerName     string
 	Timestamp      time.Time
 }
 
@@ -143,6 +144,7 @@ func natsConfigVars() (FlyEnv, error) {
 		Region:         region,
 		GatewayRegions: regions,
 		Host:           host,
+		ServerName:     os.Getenv("FLY_ALLOC_ID"),
 		Timestamp:      time.Now(),
 	}
 	if err != nil {
