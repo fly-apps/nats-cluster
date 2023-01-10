@@ -7,7 +7,7 @@ This example creates a federated mesh of NATS servers that communicate over the 
 
 1. `fly launch --no-deploy`
 
-    > You'll be prompted for an app name. Hit return to let Fly generate an app name for you. Pick your target organizatio and a starting region.
+    > You'll be prompted for an app name. Hit return to let Fly generate an app name for you. Pick your target organization and a starting region.
 
 2. `flyctl deploy`
 
@@ -72,10 +72,9 @@ You're ready to start integrating NATS messaging into your other Fly application
 
 1. [NATS streaming](https://docs.nats.io/nats-streaming-concepts/intro) offers persistence features, you can create a NATS streaming app by modifying this demo and adding volumes: `flyctl volume create`
 
-2. Create a [NATS super cluster](https://docs.nats.io/nats-server/configuration/gateways) let you join multiple NATS clusters with gateways. If you want to run regional clusters, you can query the Fly DNS service to with `<region>.<app-name>.internal` to find server in specific regions.
+2. Create a [NATS super cluster](https://docs.nats.io/nats-server/configuration/gateways) which lets you join multiple NATS clusters with gateways. If you want to run regional clusters, you can query the Fly DNS service at `<region>.<app-name>.internal` to find servers in specific regions.
 
 
 ## Discuss
 
 You can discuss this example (and the paired 6pn-demo-chat example) on the [dedicated Fly Community topic](https://community.fly.io/t/new-examples-nats-cluster-and-6pn-demo-chat/562).
-
