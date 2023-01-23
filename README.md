@@ -70,7 +70,7 @@ You're ready to start integrating NATS messaging into your other Fly application
 
 ## What to try next
 
-1. [NATS streaming](https://docs.nats.io/nats-streaming-concepts/intro) offers persistence features, you can create a NATS streaming app by modifying this demo and adding volumes: `flyctl volume create`
+1. [NATS Jetstream](https://docs.nats.io/nats-concepts/jetstream/js_walkthrough) offers persistence features, you can create [Streams](https://docs.nats.io/nats-concepts/jetstream/streams), [Consumers](https://docs.nats.io/nats-concepts/jetstream/consumers), [KV Stores](https://docs.nats.io/nats-concepts/jetstream/key-value-store), and [Object Stores](https://docs.nats.io/nats-concepts/jetstream/obj_store) items in a Jetstream Enabled NATS cluster. This example converges Jetstream when `fly scale count 3`, or `fly scale count 5`. By default Jetstream will store data in an instances ephemeral storage which is fine for simple testing. For anything more than "hello world" testing it is critical to modify this demo by adding persistent storage volumes for all instances of nats-server with `flyctl volume create` and map your named volumes to the path `/tmp/nats`.
 
 2. Create a [NATS super cluster](https://docs.nats.io/nats-server/configuration/gateways) let you join multiple NATS clusters with gateways. If you want to run regional clusters, you can query the Fly DNS service to with `<region>.<app-name>.internal` to find server in specific regions.
 
