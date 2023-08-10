@@ -70,7 +70,7 @@ You're ready to start integrating NATS messaging into your other Fly application
 
 ## What to try next
 
-1. [NATS streaming](https://docs.nats.io/nats-streaming-concepts/intro) offers persistence features, you can create a NATS streaming app by modifying this demo and adding volumes: `flyctl volume create`
+1. [NATS streaming](https://docs.nats.io/nats-concepts/jetstream/streams) offers persistence features, you can create a NATS streaming app by modifying this demo and adding volumes: `flyctl volume create`
 
 2. Create a [NATS super cluster](https://docs.nats.io/nats-server/configuration/gateways) let you join multiple NATS clusters with gateways. If you want to run regional clusters, you can query the Fly DNS service to with `<region>.<app-name>.internal` to find server in specific regions.
 
